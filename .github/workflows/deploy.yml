@@ -1,3 +1,10 @@
+name: Deploy Wealthwave
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -13,4 +20,14 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-      working-directory: ./src
+
+    - name: Run tests
+      run: npm test
+
+    - name: Deploy to Server
+      env:
+        SSH_KEY: ${{ secrets.SSH_KEY }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+      run: |
+        ssh -i $SSH_KEY $REMOTE_USER@$REMOTE_HOST 'bash -s' < scripts/deploy.sh
