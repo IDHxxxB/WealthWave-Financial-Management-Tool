@@ -1,17 +1,17 @@
-# Wealthwave 财务管理工具 - 分支策略
+# Wealthwave Financial Management Tool - Branching Strategy
 
-为了确保 Wealthwave 财务管理工具开发过程的有序性和代码质量，我们制定了以下分支策略。
+To ensure the orderly development process and code quality of the Wealthwave financial management tool, we have established the following branching strategy.
 
-## 1. 主分支（`main`）
-- `main` 分支是用于发布的稳定版本，始终保持可部署状态。
-- 任何时候，`main` 分支都不应直接进行开发工作，所有变更必须通过 Pull Request (PR) 进行审核和合并。
-- 每次合并到 `main` 分支后，应创建一个新的版本标签（`tag`），用于版本管理。
+## 1. Main Branch (`main`)
+- The `main` branch is used for stable releases and should always be in a deployable state.
+- Development work should never be done directly on the `main` branch; all changes must go through a Pull Request (PR) for review and merging.
+- After each merge into the `main` branch, a new version tag (`tag`) should be created for version management.
 
-## 2. 特性分支（`feature`）
-- 特性分支用于开发新功能，命名规则为 `feature/功能名称`。
-- 从 `develop` 分支创建特性分支，并在完成功能开发后提交 PR 合并回 `develop` 分支。
-- 命名示例：`feature/user-authentication`、`feature/investment-analysis`
+## 2. Feature Branch (`feature`)
+- Feature branches are used for developing new functionalities, following the naming convention `feature/feature-name`.
+- Create a feature branch from the `develop` branch, and after completing the development, submit a PR to merge it back into the `develop` branch.
+- Naming examples: `feature/user-authentication`, `feature/investment-analysis`.
 
-### 创建特性分支
+### Creating a Feature Branch
 ```bash
-git checkout -b feature/功能名称 develop
+git checkout -b feature/feature-name develop
