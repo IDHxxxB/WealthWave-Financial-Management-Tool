@@ -1,12 +1,5 @@
-name: Canary Deployment for Wealthwave
-
-on:
-  push:
-    branches:
-      - main
-
 jobs:
-  canary-deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,28 +13,4 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-
-    - name: Run tests
-      run: npm test
-
-    - name: Deploy to Staging (Canary)
-      env:
-        SSH_KEY: ${{ secrets.SSH_KEY }}
-        REMOTE_HOST: ${{ secrets.STAGING_HOST }}
-        REMOTE_USER: ${{ secrets.REMOTE_USER }}
-      run: |
-        ssh -i $SSH_KEY $REMOTE_USER@$REMOTE_HOST 'bash -s' < scripts/deploy.sh --canary
-
-    - name: Monitor Staging Environment
-      run: |
-        # Replace with commands to check health of the canary deployment
-        curl -f http://staging.yourdomain.com/health || exit 1
-
-    - name: Promote to Production
-      if: success()
-      env:
-        SSH_KEY: ${{ secrets.SSH_KEY }}
-        REMOTE_HOST: ${{ secrets.PRODUCTION_HOST }}
-        REMOTE_USER: ${{ secrets.REMOTE_USER }}
-      run: |
-        ssh -i $SSH_KEY $REMOTE_USER@$REMOTE_HOST 'bash -s' < scripts/deploy.sh --promote
+      working-directory: ./src
